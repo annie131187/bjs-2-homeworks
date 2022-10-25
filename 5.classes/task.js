@@ -1,8 +1,10 @@
+// Задачи № 1, 2
+
 class PrintEditionItem {
-    constructor (name, releaseDate, pageCount) {
+    constructor (name, releaseDate, pagesCount) {
         this.name = name;
         this.releaseDate = releaseDate;
-        this.pageCount = pageCount;
+        this.pagesCount = pagesCount;
         this.state = 100;
         this.type = null;
     }
@@ -27,37 +29,37 @@ class PrintEditionItem {
 }
 
 class Magazine extends PrintEditionItem {
-    constructor (name, releaseDate, pageCount) {
-        super(name, releaseDate, pageCount);
+    constructor (name, releaseDate, pagesCount) {
+        super(name, releaseDate, pagesCount);
         this.type = "magazine";
     }
 }
 
 class Book extends PrintEditionItem {
-    constructor (author, name, releaseDate, pageCount) {
-        super(name, releaseDate, pageCount);
+    constructor (author, name, releaseDate, pagesCount) {
+        super(name, releaseDate, pagesCount);
         this.author = author;
         this.type = "book";
     }
 }
 
 class NovelBook extends Book {
-    constructor(author, name, releaseDate, pageCount) {
-        super(author, name, releaseDate, pageCount);
+    constructor(author, name, releaseDate, pagesCount) {
+        super(author, name, releaseDate, pagesCount);
         this.type = "novel";
     }
 }
 
 class FantasticBook extends Book {
-    constructor(author, name, releaseDate, pageCount) {
-        super(author, name, releaseDate, pageCount);
+    constructor(author, name, releaseDate, pagesCount) {
+        super(author, name, releaseDate, pagesCount);
         this.type = "fantastic";
     }
 }
 
 class DetectiveBook extends Book {
-    constructor(author, name, releaseDate, pageCount) {
-        super(author, name, releaseDate, pageCount);
+    constructor(author, name, releaseDate, pagesCount) {
+        super(author, name, releaseDate, pagesCount);
         this.type = "detective";
     }
 }
@@ -75,27 +77,62 @@ class Library {
     }
 
     findBookBy(type, value) {
-        let result = [];
-        for (let i = 0; i < this.books.length; i++) {
-            const book = this.books[i];
-            if (book[type] === value) {
-                result.push(book);
-            } 
-        }
-        if (result === []) {
-            result = null;
-        }
-        return result;
+        let book = this.books.find(book => book[type] === value);
+        return book || null;
     }
 
     giveBookByName(bookName) {
-        let index = this.books.findIndex(book => book.key === bookName);
-        if (index >= 0) {
+        let index = this.books.findIndex(book => book.name === bookName);
+        if (index !== -1) {
+            let book = this.books[index];
             this.books.splice(index, 1);
-            return this.books[index];
-        } else if (index === -1) {
-            return null;
+            return book;
+        } 
+        return null;
+    }  
+}
+
+
+//Задача № 3
+
+class Student {
+    constructor (name) {
+        this.name = name;
+    }
+
+    addMark (mark, subject) {
+        if (mark > 5 || mark < 1) {
+            console.log('Ошибка, оценка должна быть числом от 1 до 5');
+            return;
+        }
+        if (this[subject] === undefined) {
+            this[subject] = [mark];
+        } else {
+            this[subject].push(mark);
         }
     }
+
+    getAverageBySubject (subject) {
+        let sum =  this[subject].reduce((acc, mark) => acc + mark, 0);
+        return sum / this[subject].length;
+    }
+
+    getAverage () {
         
+    }
+
+    exclude (reason) {
+        this.exclude = reason;
+    }
 }
+
+const student = new Student("Олег Никифоров");
+student.addMark(5, "algebra");
+student.addMark(5, "algebra");
+student.addMark(5, "geometry");
+student.addMark(4, "geometry");
+student.addMark(6, "geometry");
+console.log(student.getAverageBySubject("geometry"));
+
+console.log(student);
+
