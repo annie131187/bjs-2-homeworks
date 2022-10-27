@@ -98,6 +98,7 @@ class Library {
 class Student {
     constructor (name) {
         this.name = name;
+        this.subjects = {};
     }
 
     addMark (mark, subject) {
@@ -105,20 +106,30 @@ class Student {
             console.log('Ошибка, оценка должна быть числом от 1 до 5');
             return;
         }
-        if (this[subject] === undefined) {
-            this[subject] = [mark];
+        if (this.subjects[subject] === undefined) {
+            this.subjects[subject] = [mark];
         } else {
-            this[subject].push(mark);
+            this.subjects[subject].push(mark);
         }
     }
 
     getAverageBySubject (subject) {
-        let sum =  this[subject].reduce((acc, mark) => acc + mark, 0);
-        return sum / this[subject].length;
+        if (!this.subjects.hasOwnProperty(subject)) {
+            console.log('Такого предмета не существует');
+            return;
+        }
+        
+        let sum =  this.subjects[subject].reduce((acc, mark) => acc + mark, 0);
+        return sum / this.subjects[subject].length;
     }
 
     getAverage () {
-        
+        let summ = 0;
+        for (let subject in this.subjects) {
+            let subjectSum = this.getAverageBySubject(subject);
+            summ += subjectSum;
+        }
+        return summ / Object.keys(this.subjects).length;
     }
 
     exclude (reason) {
@@ -133,6 +144,9 @@ student.addMark(5, "geometry");
 student.addMark(4, "geometry");
 student.addMark(6, "geometry");
 console.log(student.getAverageBySubject("geometry"));
+console.log(student.getAverageBySubject("biology"));
+console.log(student.getAverage());
+
 
 console.log(student);
 
