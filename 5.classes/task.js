@@ -136,17 +136,3 @@ class Student {
         this.exclude = reason;
     }
 }
-
-const student = new Student("Олег Никифоров");
-student.addMark(5, "algebra");
-student.addMark(5, "algebra");
-student.addMark(5, "geometry");
-student.addMark(4, "geometry");
-student.addMark(6, "geometry");
-console.log(student.getAverageBySubject("geometry"));
-console.log(student.getAverageBySubject("biology"));
-console.log(student.getAverage());
-
-
-console.log(student);
-
