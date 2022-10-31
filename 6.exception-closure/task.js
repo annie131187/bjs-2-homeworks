@@ -22,7 +22,7 @@ function validateCount (value) {
 class Triangle {
     constructor (a, b, c) {
         if (!((a + b) > c && (a + c) > b && (b + c) > a)) {
-            throw new Error ('Треугольник с такими сторонами не сущетсвует');
+            throw new Error ("Треугольник с такими сторонами не существует");
         }
         this.a = a;
         this.b = b;
@@ -35,8 +35,7 @@ class Triangle {
 
     getArea () {
         let p = this.getPerimeter() / 2;
-        let square = Number(Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c)).toFixed(3));
-        return square;
+        return Number(Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c)).toFixed(3));
     }
 }
 
@@ -46,8 +45,8 @@ function getTriangle (a, b, c) {
     }
     catch (error) {
         return {
-            getPerimeter: () => "Ошибка! Треугольник не существует’",
-            getArea: () => "Ошибка! Треугольник не существует’",
+            getPerimeter: () => "Ошибка! Треугольник не существует",
+            getArea: () => "Ошибка! Треугольник не существует",
         };
     }
 }
